@@ -58,3 +58,6 @@ _placeholder/         示意圖（tools/make_placeholders.py 產生）
 build/                自動產生的網頁用圖
 dist/                 學生獨立版
 ```
+
+> 註：網站版（GitHub Pages）不附 `.bat` / `.py` 工具檔，避免瀏覽器把網站誤判為散布軟體。
+> 換圖、同步與本機開啟工具請使用電腦裡的「文件\ChatGPT\食農小旅行\nantou-landscape-explorers」資料夾。
