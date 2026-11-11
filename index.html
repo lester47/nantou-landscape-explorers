@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>南投家鄉景觀探險隊：360° 看見家鄉的自然與人文｜國小社會數位教材</title>
+  <meta name="description" content="國小社會四上「家鄉的景觀」：透過 360° 全景走訪南投日月潭、九九峰、溪頭、藍田書院、紫南宮、車埕、集集與中興新村，認識自然景觀、人文景觀與景觀的變遷。">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/pannellum.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/landscape.css">
+</head>
+<body>
+
+  <!-- ================= 頂部功能列 ================= -->
+  <header class="app-header">
+    <div class="brand-wrap">
+      <span class="brand-icon">🏞️</span>
+      <div>
+        <h1 class="brand-title">南投家鄉景觀探險隊</h1>
+      </div>
+      <span class="brand-tag">社會四上・家鄉的景觀</span>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="header-tool-btn open-comparison-btn" title="查看 8 大景觀比較表">
+        📊 景觀比較表
+      </button>
+      <button type="button" class="sound-toggle-btn" title="切換音效開關">
+        🔊 音效開
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= 畫面 1：首頁 ================= -->
+  <main id="home-screen" class="screen">
+    <div class="home-container land-home">
+      <div class="land-hero">
+        <img class="land-hero-map" data-asset="heroMap" alt="南投景觀探險地圖">
+        <img class="land-hero-mascot hero-mascot-img" data-asset="mascot" alt="阿虎隊長">
+      </div>
+
+      <span class="home-badge-tag">🏞️ 國小社會 數位 360° 互動教材・家鄉的景觀</span>
+      <h2 class="home-title">南投家鄉景觀探險隊<br>360° 看見家鄉的自然與人文</h2>
+      <p class="home-desc">跟著阿虎隊長走訪南投 8 個景點，轉動 360° 全景畫面找線索，完成闖關，成為「家鄉景觀小導覽員」！</p>
+
+      <div class="land-legend" id="home-legend"></div>
+
+      <div id="home-progress-tag" class="progress-notify-tag hidden"></div>
+
+      <div class="home-login-card">
+        <label for="player-name-input" class="input-label">請輸入探險隊員姓名：</label>
+        <div class="input-group">
+          <input type="text" id="player-name-input" class="name-input" placeholder="例如：林小明 或 座號 12 號" maxlength="10" autocomplete="off">
+          <button type="button" id="start-adventure-btn" class="primary-btn pulse-glow">🧭 出發探險</button>
+        </div>
+      </div>
+
+      <div class="home-actions">
+        <button type="button" id="reset-progress-btn" class="secondary-btn">🔄 重新出發（清除進度）</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= 畫面 2：景點地圖 ================= -->
+  <main id="timeline-screen" class="screen hidden">
+    <div class="timeline-container">
+      <div class="timeline-header">
+        <h2>🗺️ 南投景觀探險地圖</h2>
+        <p>歡迎探險隊員 <strong id="timeline-player-name" style="color: var(--color-primary);"></strong>！請依序走訪 8 個景點：</p>
+        <div class="land-legend" id="timeline-legend"></div>
+      </div>
+
+      <div class="timeline-bar"></div>
+
+      <div id="era-cards-container" class="era-cards-grid"></div>
+
+      <div id="timeline-cert-banner" class="cert-banner hidden">
+        <div class="cert-banner-text">
+          <h3>🎉 8 個景點全部過關！</h3>
+          <p>完成終極任務，就能領取證書！</p>
+        </div>
+        <button type="button" id="view-final-cert-btn" class="primary-btn pulse-glow">🌟 挑戰終極任務</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= 畫面 3：360° 探索 ================= -->
+  <main id="viewer-screen" class="screen hidden viewer-maximized">
+    <div id="panorama"></div>
+    <div id="placeholder-ribbon" class="placeholder-ribbon hidden">示意圖・正式全景圖製作中</div>
+    <div id="teacher-crosshair" class="teacher-crosshair hidden"><span></span></div>
+
+    <div class="hud-top-bar">
+      <div class="hud-top-left">
+        <button type="button" id="back-to-timeline-btn" class="hud-btn hud-back-btn" title="返回景點地圖">
+          <span class="hud-btn-icon">⬅</span>
+          <span class="hud-btn-text">回景點地圖</span>
+        </button>
+        <div class="hud-era-pill">
+          <span id="scene-era-title" class="hud-era-title">景點名稱</span>
+          <span class="hud-pill-divider">·</span>
+          <span id="scene-era-info" class="hud-era-info">景點資訊</span>
+        </div>
+      </div>
+
+      <div class="hud-top-right">
+        <button type="button" id="timemachine-btn" class="hud-btn timemachine-btn hidden" title="比一比以前和現在">⏳ 時光機</button>
+
+        <div class="clue-radar-dropdown" id="clue-radar-dropdown">
+          <button type="button" id="clue-radar-toggle-btn" class="hud-btn hud-radar-btn" aria-expanded="false" title="開啟本站線索清單">
+            <span class="radar-btn-icon">🧭</span>
+            <span class="radar-btn-text">線索雷達</span>
+            <span id="radar-progress-badge" class="radar-progress-badge">0 / 7</span>
+            <span class="radar-arrow">▾</span>
+          </button>
+          <div id="clue-radar-menu" class="clue-radar-menu hidden">
+            <div class="radar-menu-header">
+              <div class="radar-menu-title">🧭 景觀線索快速雷達</div>
+              <div class="radar-menu-subtitle">點擊線索可自動轉向並開啟內容</div>
+            </div>
+            <div id="clue-radar-items" class="clue-radar-items-list"></div>
+          </div>
+        </div>
+
+        <div id="clue-counter" class="hud-clue-counter hidden"><span>🔍 線索</span> <strong>0 / 7</strong></div>
+
+        <button type="button" class="hud-btn sound-toggle-btn" title="切換音效開關">🔊 音效開</button>
+      </div>
+    </div>
+
+    <div class="scene-bottom-bar">
+      <div class="captain-helper-box">
+        <img data-asset="mascot" alt="阿虎隊長" class="captain-avatar-img">
+        <div class="speech-bubble">
+          <span class="captain-speaker-name">阿虎隊長：</span>
+          <span id="captain-speech-text">轉動畫面看看四周，發光的金色圓點就是線索喔！</span>
+        </div>
+      </div>
+      <div class="scene-actions-right">
+        <button type="button" id="guide-clue-btn" class="compass-guide-btn" title="把鏡頭轉向尚未發現的線索">🧭 找不到線索？指引我！</button>
+        <button type="button" id="start-challenge-btn" class="challenge-start-btn disabled" disabled title="找齊所有線索後即可開始闖關">🏁 開始闖關任務</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= 畫面 4：問答 ================= -->
+  <main id="quiz-screen" class="screen hidden">
+    <div class="quiz-container">
+      <div class="quiz-header">
+        <h2 id="quiz-era-name">景點・闖關任務</h2>
+        <span id="quiz-progress" class="quiz-progress-pill">第 1 / 4 題</span>
+      </div>
+      <div class="quiz-card">
+        <div class="quiz-question-row">
+          <div id="quiz-question-text" class="quiz-question-text">題目載入中...</div>
+          <button type="button" id="quiz-speak-btn" class="speak-btn" title="朗讀題目與選項">🔊 唸給我聽</button>
+        </div>
+        <div id="quiz-options-container" class="quiz-options-list"></div>
+        <div id="quiz-feedback" class="quiz-feedback-box hidden"><div id="quiz-feedback-text"></div></div>
+      </div>
+      <div class="quiz-footer-actions">
+        <button type="button" id="quiz-timemachine-btn" class="secondary-btn hidden">⏳ 打開時光機</button>
+        <button type="button" id="quiz-back-to-scene-btn" class="secondary-btn">🔍 回 360° 場景看一下線索</button>
+        <button type="button" id="quiz-next-btn" class="primary-btn hidden">下一題 ➔</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= 畫面 5：終極任務 ================= -->
+  <main id="final-task-screen" class="screen hidden">
+    <div class="final-container">
+      <div class="quiz-header">
+        <h2 id="final-title">🌟 終極任務：家鄉景觀分類王</h2>
+        <span id="final-step-pill" class="quiz-progress-pill">第 1 / 2 關</span>
+      </div>
+      <p id="final-prompt" class="final-prompt"></p>
+      <div id="final-cards" class="final-cards"></div>
+      <div id="final-feedback" class="quiz-feedback-box hidden"><div id="final-feedback-text"></div></div>
+      <div class="quiz-footer-actions">
+        <button type="button" id="final-back-btn" class="secondary-btn">🗺️ 回景點地圖</button>
+        <button type="button" id="final-check-btn" class="primary-btn">✅ 檢查答案</button>
+        <button type="button" id="final-next-btn" class="primary-btn pulse-glow hidden">下一關 ➔</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= 畫面 6：證書 ================= -->
+  <main id="certificate-screen" class="screen hidden">
+    <div class="cert-page-container">
+      <div class="cert-page-header">
+        <h2>🎉 恭喜成為家鄉景觀小導覽員！</h2>
+        <p>你已經走完南投 8 個景點，也完成了終極任務。寫下你最想推薦的家鄉景觀，再下載或列印證書吧！</p>
+      </div>
+      <div class="my-landscape-card">
+        <label for="my-landscape-input">🏡 我推薦的家鄉景觀（課本 p.45 動動腦）：</label>
+        <div class="input-group">
+          <input type="text" id="my-landscape-input" class="name-input" maxlength="16" placeholder="例如：埔里桃米生態村、草屯九九峰">
+          <button type="button" id="my-landscape-apply" class="secondary-btn">寫上證書</button>
+        </div>
+      </div>
+      <div class="cert-canvas-wrap"><canvas id="certificate-canvas"></canvas></div>
+      <div class="cert-actions-bar">
+        <button type="button" id="download-cert-btn" class="primary-btn pulse-glow">📥 下載證書圖片 (PNG)</button>
+        <button type="button" id="print-cert-btn" class="secondary-btn">🖨️ 列印證書 (A4)</button>
+        <button type="button" class="secondary-btn open-comparison-btn">📊 景觀比較表</button>
+        <button type="button" id="cert-back-home-btn" class="secondary-btn">🗺️ 回景點地圖</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= 彈窗：線索小卡 ================= -->
+  <div id="clue-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="clue-modal-card">
+      <div id="clue-icon" class="clue-icon-huge">🏞️</div>
+      <h3 id="clue-title" class="clue-modal-title"></h3>
+      <div id="clue-text" class="clue-modal-text"></div>
+      <div class="modal-actions">
+        <button type="button" id="clue-speak-btn" class="speak-btn">🔊 唸給我聽</button>
+        <button type="button" id="clue-close-btn" class="primary-btn">我知道了！</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 彈窗：時光機 ================= -->
+  <div id="timemachine-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="timemachine-card">
+      <h3 id="tm-title" class="tm-title">⏳ 時光機</h3>
+      <div class="tm-steps" id="tm-steps"></div>
+      <div class="tm-frame">
+        <img id="tm-img" alt="">
+        <span id="tm-ph" class="tm-ph hidden">示意圖</span>
+      </div>
+      <p id="tm-caption" class="tm-caption"></p>
+      <div class="modal-actions">
+        <button type="button" id="tm-prev" class="secondary-btn">◀ 往前</button>
+        <button type="button" id="tm-speak" class="speak-btn">🔊 唸給我聽</button>
+        <button type="button" id="tm-next" class="secondary-btn">往後 ▶</button>
+        <button type="button" id="tm-close" class="primary-btn">關閉時光機</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 彈窗：過關徽章 ================= -->
+  <div id="victory-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="victory-card">
+      <img id="victory-badge-img" alt="過關徽章" class="victory-badge-large">
+      <h3 class="victory-title">闖關成功！</h3>
+      <div id="victory-badge-title" class="victory-badge-name"></div>
+      <div class="victory-speech-box"><p id="victory-speech-text"></p></div>
+      <button type="button" id="victory-next-btn" class="primary-btn pulse-glow">前往下一個景點 ➔</button>
+    </div>
+  </div>
+
+  <!-- ================= 彈窗：比較總表 ================= -->
+  <div id="comparison-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="comparison-card">
+      <h2>📊 南投 8 大景觀比較總表</h2>
+      <div class="comparison-scroll"><table class="comparison-table"></table></div>
+      <div style="text-align: center;">
+        <button type="button" id="close-comparison-btn" class="primary-btn">關閉比較表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS:START -->
+  <script src="js/pannellum.js"></script>
+  <script src="data/eras.js"></script>
+  <script>
+    // 直接雙擊開啟（file://）時，載入內嵌全景圖與證書素材，避免瀏覽器跨來源限制
+    if (location.protocol === 'file:') {
+      document.write('<script src="data/pano_data.js"><\/script><script src="data/cert_data.js"><\/script>');
+    }
+  </script>
+  <script src="js/markdown.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/viewer.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/certificate.js"></script>
+  <script src="js/landscape.js"></script>
+  <script src="js/app.js"></script>
+  <!-- SCRIPTS:END -->
+
+</body>
+</html>

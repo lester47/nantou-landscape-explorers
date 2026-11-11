@@ -1,0 +1,304 @@
+/* ==========================================================================
+   南投家鄉景觀探險隊 - 景觀版樣式（覆蓋 style.css）
+   色系：山林綠＋湖水藍；分類色：自然綠 #3FA34D、人文橘 #E8833A、變遷藍 #2F7FC1
+   ========================================================================== */
+:root {
+  --color-bg: #eef6f3;
+  --color-card-bg: #fffffb;
+  --color-primary: #1f7a6c;
+  --color-primary-hover: #26907f;
+  --color-secondary: #f2a33a;
+  --color-accent: #e8833a;
+  --color-earth-dark: #1f3a33;
+  --color-earth-medium: #4a5d55;
+  --color-earth-light: #e2f0eb;
+  --color-border: #bcd9cf;
+  --cat-nature: #3FA34D;
+  --cat-culture: #E8833A;
+  --cat-change: #2F7FC1;
+}
+
+/* ---------- 首頁 ---------- */
+.land-home { margin-top: 24px; }
+.land-hero {
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  margin-bottom: 20px;
+}
+.land-hero-map {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 4px solid #fff;
+  background: #d9ece3;
+}
+.land-hero .land-hero-mascot {
+  position: absolute;
+  left: -10px;
+  bottom: -26px;
+  width: 170px;
+  height: 170px;
+}
+.land-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 4px 0 14px;
+}
+.legend-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--chip);
+}
+
+/* ---------- 景點地圖 ---------- */
+.timeline-bar { background: linear-gradient(to right, var(--cat-nature), var(--cat-culture), var(--cat-change)); }
+.timeline-bar .node-label { font-size: 13px; white-space: nowrap; }
+.era-cat-pill {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+}
+.era-cat-pill-2 { top: 48px; }
+.era-ph-pill {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, .9);
+  color: #8a6d00;
+  border: 2px dashed #c99700;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+}
+.era-card.locked .era-card-thumb img { filter: grayscale(.85) brightness(.9); }
+
+/* ---------- 360 場景 ---------- */
+.placeholder-ribbon {
+  position: absolute;
+  top: 74px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  background: rgba(255, 248, 225, .95);
+  color: #8a6d00;
+  border: 2px dashed #c99700;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 4px 16px;
+  border-radius: var(--radius-full);
+  pointer-events: none;
+}
+.timemachine-btn {
+  background: linear-gradient(135deg, #2F7FC1, #1f5f95) !important;
+  color: #fff !important;
+  font-weight: 800;
+  animation: tm-glow 2s ease-in-out infinite;
+}
+@keyframes tm-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(47, 127, 193, .55); }
+  50% { box-shadow: 0 0 0 8px rgba(47, 127, 193, 0); }
+}
+.teacher-crosshair {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+  z-index: 7;
+  pointer-events: none;
+}
+.teacher-crosshair::before, .teacher-crosshair::after {
+  content: "";
+  position: absolute;
+  background: #e53935;
+}
+.teacher-crosshair::before { left: 21px; top: 0; width: 2px; height: 44px; }
+.teacher-crosshair::after { top: 21px; left: 0; height: 2px; width: 44px; }
+.teacher-crosshair span {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: rgba(0, 0, 0, .75);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 8px;
+}
+
+/* ---------- 時光機彈窗 ---------- */
+.timemachine-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  max-width: 860px;
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  padding: 24px 28px;
+  box-shadow: var(--shadow-lg);
+  border-top: 8px solid var(--cat-change);
+}
+.tm-title { color: var(--cat-change); font-size: 26px; text-align: center; margin-bottom: 12px; }
+.tm-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.tm-step {
+  background: #eef4fa;
+  color: var(--cat-change);
+  border: 2px solid #c5dbef;
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  font-size: 16px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.tm-step.active { background: var(--cat-change); color: #fff; border-color: var(--cat-change); }
+.tm-step-no {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .85);
+  color: var(--cat-change);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.tm-arrow { color: #9bb7d1; font-weight: 900; }
+.tm-frame { position: relative; }
+.tm-frame img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background: #dfe9f2;
+  display: block;
+}
+.tm-ph {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 248, 225, .95);
+  color: #8a6d00;
+  border: 2px dashed #c99700;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+}
+.tm-caption { font-size: 19px; line-height: 1.7; margin: 14px 4px 16px; text-align: center; font-weight: 500; }
+.timemachine-card .modal-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.timemachine-card button:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ---------- 終極任務 ---------- */
+.final-container { max-width: 1100px; margin: 28px auto; padding: 0 20px 40px; width: 100%; }
+.final-prompt { font-size: 20px; font-weight: 700; margin: 14px 0 18px; line-height: 1.6; }
+.final-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.final-cards.final-cards-4 { grid-template-columns: repeat(4, 1fr); }
+.final-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 3px solid transparent;
+  transition: border-color .2s;
+}
+.final-card.right { border-color: var(--cat-nature); }
+.final-card.wrong { border-color: #e53935; animation: shake-anim .5s; }
+.final-card img { width: 100%; aspect-ratio: 2 / 1; object-fit: cover; display: block; }
+.final-card-body { padding: 10px 12px 12px; }
+.final-card-name { font-weight: 800; font-size: 17px; }
+.final-card-sub { font-size: 14px; color: var(--color-earth-medium); margin-bottom: 8px; }
+.final-choice-row { display: flex; flex-direction: column; gap: 6px; }
+.final-choice {
+  background: #f4f7f5;
+  border: 2px solid #d4e3dc;
+  border-radius: 10px;
+  padding: 6px 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-earth-dark);
+}
+.final-choice.selected { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+#final-feedback { margin-bottom: 16px; }
+@keyframes shake-anim {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+/* ---------- 證書頁：我的家鄉景觀 ---------- */
+.my-landscape-card {
+  background: #fff8ef;
+  border: 2px dashed var(--cat-culture);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin: 0 auto 18px;
+  max-width: 760px;
+  text-align: left;
+}
+.my-landscape-card label { font-weight: 800; color: #b5561a; display: block; margin-bottom: 8px; }
+
+/* ---------- 比較表 ---------- */
+.comparison-card { max-width: 1180px; }
+.comparison-scroll { overflow-x: auto; margin-bottom: 18px; }
+.comparison-scroll .comparison-table { min-width: 860px; font-size: 16px; }
+
+/* ---------- 手機與平板 ---------- */
+@media (max-width: 900px) {
+  .final-cards, .final-cards.final-cards-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .brand-tag { display: none; }
+  .header-tool-btn { font-size: 14px; padding: 6px 10px; }
+  .land-hero .land-hero-mascot { width: 110px; height: 110px; bottom: -18px; }
+  .timeline-bar .node-label { display: none; }
+  .final-cards, .final-cards.final-cards-4 { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .final-card-name { font-size: 15px; }
+  .tm-step { font-size: 14px; padding: 4px 10px; }
+  .placeholder-ribbon { top: 64px; font-size: 13px; }
+}
+@media print {
+  .my-landscape-card { display: none !important; }
+}
+@media (max-width: 640px) {
+  .land-home { width: 100%; max-width: 100%; overflow-x: hidden; }
+  .home-badge-tag { white-space: normal; font-size: 14px; }
+  .home-title { font-size: 26px; }
+  .brand-title { font-size: 18px; }
+  .brand-icon { font-size: 24px; }
+  .header-actions button { font-size: 13px; padding: 6px 10px; white-space: nowrap; }
+}
