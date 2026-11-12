@@ -1,4 +1,5 @@
 {
+  "quizRetry": { "maxWrong": 2 },
   "issuer": "南投縣 國小社會領域教學團隊",
   "appTitle": "南投家鄉景觀探險隊",
   "appSubtitle": "360° 看見家鄉的自然與人文",

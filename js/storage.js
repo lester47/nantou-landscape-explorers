@@ -58,6 +58,39 @@
       return state;
     },
 
+    // 防亂猜：記錄本站第一次就答錯的題目（離開或重新整理也不會歸零）
+    getQuizMissed(eraId) {
+      const state = this.get();
+      return (state.quizMissed && state.quizMissed[eraId]) || [];
+    },
+
+    addQuizMissed(eraId, qIndex) {
+      const state = this.get();
+      state.quizMissed = state.quizMissed || {};
+      const list = state.quizMissed[eraId] || [];
+      if (!list.includes(qIndex)) list.push(qIndex);
+      state.quizMissed[eraId] = list;
+      this.save(state);
+      return list;
+    },
+
+    clearQuizMissed(eraId) {
+      const state = this.get();
+      if (state.quizMissed) delete state.quizMissed[eraId];
+      this.save(state);
+    },
+
+    // 錯太多題：本站線索重設為未看（彩蛋保留），重來次數 +1
+    resetEraForRetry(eraId) {
+      const state = this.get();
+      state.readClues[eraId] = (state.readClues[eraId] || []).filter(id => id.includes('egg'));
+      if (state.quizMissed) delete state.quizMissed[eraId];
+      state.quizRetries = state.quizRetries || {};
+      state.quizRetries[eraId] = (state.quizRetries[eraId] || 0) + 1;
+      this.save(state);
+      return state;
+    },
+
     isEraCompleted(eraId) {
       const state = this.get();
       return state.completedEras.includes(eraId);

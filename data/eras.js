@@ -1,5 +1,8 @@
 // data/eras.js - 由 sync_assets.py 自動產生，請改 data/eras.json 後重新執行
 window.ERAS_DATA = {
+  "quizRetry": {
+    "maxWrong": 2
+  },
   "issuer": "南投縣 國小社會領域教學團隊",
   "appTitle": "南投家鄉景觀探險隊",
   "appSubtitle": "360° 看見家鄉的自然與人文",
